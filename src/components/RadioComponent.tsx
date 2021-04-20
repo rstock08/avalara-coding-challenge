@@ -7,14 +7,16 @@ interface IRadioProps {
     label: string;
     description: string;
     options: string[];
-    //handleChange(val: any): void;
+    uniqueKey: number;
+    handleChange(val: any): void;
 }
 
 export default function RadioComponent(props: IRadioProps) {
+
     return (
-        <React.Fragment>
+        <React.Fragment key={`radio-group-${props.uniqueKey}`}>
             <FormLabel component="legend">{props.label}</FormLabel>
-            <RadioGroup name={props.name} value={props.value}>
+            <RadioGroup name={props.name} value={props.value ? props.value : ""} onChange={props.handleChange}>
                 {
                     props.options.map((option, index) => {
                         return <FormControlLabel key={`radio-${index}`} value={option} control={<Radio />} label={option} />

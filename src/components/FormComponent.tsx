@@ -8,58 +8,60 @@ import RadioComponent from "./RadioComponent";
 interface IFormComponentProps {
     formData: IFormFieldsData[];
     formType: string;
+    handleChange(val: any): void;
 }
 
-function mapFormInputFields(field: IFormFieldsData) {
-    switch (field.type) {
-        case "text": {
-            return (
-                <TextComponent
+export default function FormComponent(props: IFormComponentProps) {
+
+    const mapFormInputFields = ((field: IFormFieldsData) => {
+        switch (field.type) {
+            case "text": {
+                return (
+                    <TextComponent
+                        value={field.value}
+                        name={field.name}
+                        label={field.label}
+                        description={field.description}
+                        key={field.displayOrder}
+                    />
+                )
+            }
+            case "select": {
+                return <SelectComponent
                     value={field.value}
                     name={field.name}
                     label={field.label}
                     description={field.description}
                     key={field.displayOrder}
-                />
-            )
-        }
-        case "select": {
-            return <SelectComponent
-                value={field.value}
-                name={field.name}
-                label={field.label}
-                description={field.description}
-                key={field.displayOrder}
-                options={field.options as string[]}
-            />
-        }
-        case "radio": {
-            return (
-                <RadioComponent
-                    value={field.value}
-                    name={field.name}
-                    label={field.label}
-                    description={field.description}
                     options={field.options as string[]}
                 />
-            )
+            }
+            case "radio": {
+                return (
+                    <RadioComponent
+                        value={field.value}
+                        name={field.name}
+                        label={field.label}
+                        description={field.description}
+                        options={field.options as string[]}
+                        uniqueKey={field.displayOrder}
+                        handleChange={props.handleChange}
+                    />
+                )
+            }
+            default: {
+                return null;
+            }
         }
-        default: {
-            return null;
-        }
-    }
-}
+    })
 
-
-
-export default function FormComponent(props: IFormComponentProps) {
     return (
         <Container maxWidth="xs" style={{ paddingTop: "5rem" }}>
 
             {props.formData.sort((n1, n2) => n1.displayOrder - n2.displayOrder).map((field: IFormFieldsData) => {
                 return (
                     <div style={{ paddingBottom: "2rem" }}>
-                        {(mapFormInputFields(field))}
+                        {mapFormInputFields(field)}
                     </div>
                 )
             })}

@@ -41,7 +41,17 @@ export default function FormContainer(props: IFormContainerProps) {
         setFormData(dumbydata.data.fields);
     }, []);
 
+    const handleChange = ((val: any) => {
+        console.log(val);
+        let newFormData = [...formData];
+        const index = formData.findIndex(x => x.name === val.currentTarget.name);
+        if (index !== -1) {
+            newFormData[index].value = val.currentTarget.value;
+        }
+        setFormData(newFormData);
+    })
+
     return (
-        <FormComponent formData={formData} formType={formType} />
+        <FormComponent formData={formData} formType={formType} handleChange={handleChange} />
     );
 }

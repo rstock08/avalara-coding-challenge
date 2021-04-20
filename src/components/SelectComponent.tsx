@@ -14,15 +14,15 @@ interface ISelectProps {
 export default function SelectComponent(props: ISelectProps) {
     return (
         <React.Fragment>
-            <FormControl>
+            <FormControl style={{ width: "12rem" }}>
                 <InputLabel shrink>
                     {props.label}
                 </InputLabel>
                 <Select
-                    defaultValue=""
+                    displayEmpty
                 >
-                    <MenuItem key={"menu-item-empty"} value="None">
-                        <em>None</em>
+                    <MenuItem value="" disabled>
+                        {props.description}
                     </MenuItem>
                     {props.options.length > 0 ? (
                         props.options.map((option: string, index: number) => {
@@ -34,7 +34,6 @@ export default function SelectComponent(props: ISelectProps) {
                         })
                     ) : (null)}
                 </Select>
-                <FormHelperText>{props.description}</FormHelperText>
             </FormControl>
         </React.Fragment>
     )
