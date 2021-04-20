@@ -6,14 +6,12 @@ interface ITextFieldProps {
     name: string;
     label: string;
     description: string;
-    key: number;
 }
 
 export default function TextFieldComponent(props: ITextFieldProps) {
     return (
         <React.Fragment>
             <TextField
-                key={props.key}
                 fullWidth
                 label={props.label}
                 value={props.value}

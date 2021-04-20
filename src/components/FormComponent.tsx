@@ -24,7 +24,14 @@ function mapFormInputFields(field: IFormFieldsData) {
             )
         }
         case "select": {
-            return <SelectComponent />
+            return <SelectComponent
+                value={field.value}
+                name={field.name}
+                label={field.label}
+                description={field.description}
+                key={field.displayOrder}
+                options={field.options as string[]}
+            />
         }
         case "radio": {
             return (
@@ -33,7 +40,6 @@ function mapFormInputFields(field: IFormFieldsData) {
                     name={field.name}
                     label={field.label}
                     description={field.description}
-                    key={field.displayOrder}
                     options={field.options as string[]}
                 />
             )
