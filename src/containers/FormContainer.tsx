@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import FormComponent from "../components/FormComponent";
 import { dumbydata } from "../dumbydata";
 
@@ -32,13 +32,15 @@ export enum types {
 
 export default function FormContainer(props: IFormContainerProps) {
 
-    const [formData, setFormData] = useState({} as IForm);
+    const [formData, setFormData] = useState([] as IFormFieldsData[]);
+    const [formType, setFormtype] = useState("")
 
     useEffect(() => {
-        setFormData(dumbydata);
-    });
+        setFormtype(dumbydata.formType)
+        setFormData(dumbydata.data.fields);
+    }, []);
 
     return (
-        <FormComponent data={formData} />
+        <FormComponent formData={formData} formType={formType} />
     );
 }
