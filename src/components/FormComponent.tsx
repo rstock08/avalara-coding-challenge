@@ -1,6 +1,6 @@
-import { Container, TextField } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import React from "react";
-import { IFields, IForm, IFormFieldsData } from "../containers/FormContainer";
+import { IFormFieldsData } from "../containers/FormContainer";
 import TextComponent from "./TextFieldComponent";
 import SelectComponent from "./SelectComponent";
 import RadioComponent from "./RadioComponent";
@@ -13,13 +13,30 @@ interface IFormComponentProps {
 function mapFormInputFields(field: IFormFieldsData) {
     switch (field.type) {
         case "text": {
-            return <TextComponent />
+            return (
+                <TextComponent
+                    value={field.value}
+                    name={field.name}
+                    label={field.label}
+                    description={field.description}
+                    key={field.displayOrder}
+                />
+            )
         }
         case "select": {
             return <SelectComponent />
         }
         case "radio": {
-            return <RadioComponent />
+            return (
+                <RadioComponent
+                    value={field.value}
+                    name={field.name}
+                    label={field.label}
+                    description={field.description}
+                    key={field.displayOrder}
+                    options={field.options as string[]}
+                />
+            )
         }
         default: {
             return null;
@@ -34,7 +51,11 @@ export default function FormComponent(props: IFormComponentProps) {
         <Container maxWidth="xs" style={{ paddingTop: "5rem" }}>
 
             {props.formData.map((field: IFormFieldsData) => {
-                return mapFormInputFields(field)
+                return (
+                    <div style={{ paddingBottom: "2rem" }}>
+                        {(mapFormInputFields(field))}
+                    </div>
+                )
             })}
 
         </Container>
