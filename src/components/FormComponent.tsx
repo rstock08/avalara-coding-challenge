@@ -50,7 +50,7 @@ export default function FormComponent(props: IFormComponentProps) {
     return (
         <Container maxWidth="xs" style={{ paddingTop: "5rem" }}>
 
-            {props.formData.map((field: IFormFieldsData) => {
+            {props.formData.sort((n1, n2) => n1.displayOrder - n2.displayOrder).map((field: IFormFieldsData) => {
                 return (
                     <div style={{ paddingBottom: "2rem" }}>
                         {(mapFormInputFields(field))}
