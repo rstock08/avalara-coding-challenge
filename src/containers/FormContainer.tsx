@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FormComponent from "../components/FormComponent";
-import { dumbydata } from "../dumbydata";
+import { dumbydata } from "../services/dumbydata";
 
 interface IFormContainerProps {
 
@@ -44,11 +44,21 @@ export default function FormContainer(props: IFormContainerProps) {
     const handleChange = ((val: any) => {
         console.log(val);
         let newFormData = [...formData];
-        const index = formData.findIndex(x => x.name === val.currentTarget.name);
-        if (index !== -1) {
-            newFormData[index].value = val.currentTarget.value;
+        let index = -1;
+        if (val.currentTarget.name) {
+            index = formData.findIndex(x => x.name === val.currentTarget.name);
+            if (index !== -1) {
+                newFormData[index].value = val.currentTarget.value;
+                setFormData(newFormData);
+            }
         }
-        setFormData(newFormData);
+        else if (val.target.name) {
+            index = formData.findIndex(x => x.name === val.target.name);
+            if (index !== -1) {
+                newFormData[index].value = val.target.value;
+                setFormData(newFormData);
+            }
+        }
     })
 
     return (

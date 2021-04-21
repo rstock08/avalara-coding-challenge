@@ -1,5 +1,6 @@
-import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import React from "react";
+import ToolTipComponent from "./ToolTipComponent";
 
 interface IRadioProps {
     value?: string;
@@ -15,14 +16,21 @@ export default function RadioComponent(props: IRadioProps) {
 
     return (
         <React.Fragment key={`radio-group-${props.uniqueKey}`}>
-            <FormLabel component="legend">{props.label}</FormLabel>
-            <RadioGroup name={props.name} value={props.value ? props.value : ""} onChange={props.handleChange}>
-                {
-                    props.options.map((option, index) => {
-                        return <FormControlLabel key={`radio-${index}`} value={option} control={<Radio />} label={option} />
-                    })
+            <ToolTipComponent
+                toolTipText={props.description}
+                renderChild={
+                    <FormControl>
+                        <FormLabel component="legend">{props.label}</FormLabel>
+                        <RadioGroup name={props.name} value={props.value ? props.value : ""} onChange={props.handleChange}>
+                            {
+                                props.options.map((option, index) => {
+                                    return <FormControlLabel key={`radio-option-${index}`} value={option} control={<Radio />} label={option} />
+                                })
+                            }
+                        </RadioGroup>
+                    </FormControl>
                 }
-            </RadioGroup>
+            />
         </React.Fragment>
     )
 }

@@ -1,5 +1,4 @@
 import { Container } from "@material-ui/core";
-import React from "react";
 import { IFormFieldsData } from "../containers/FormContainer";
 import TextComponent from "./TextFieldComponent";
 import SelectComponent from "./SelectComponent";
@@ -22,7 +21,8 @@ export default function FormComponent(props: IFormComponentProps) {
                         name={field.name}
                         label={field.label}
                         description={field.description}
-                        key={field.displayOrder}
+                        uniqueKey={field.displayOrder}
+                        handleChange={props.handleChange}
                     />
                 )
             }
@@ -32,7 +32,8 @@ export default function FormComponent(props: IFormComponentProps) {
                     name={field.name}
                     label={field.label}
                     description={field.description}
-                    key={field.displayOrder}
+                    uniqueKey={field.displayOrder}
+                    handleChange={props.handleChange}
                     options={field.options as string[]}
                 />
             }
@@ -58,9 +59,9 @@ export default function FormComponent(props: IFormComponentProps) {
     return (
         <Container maxWidth="xs" style={{ paddingTop: "5rem" }}>
 
-            {props.formData.sort((n1, n2) => n1.displayOrder - n2.displayOrder).map((field: IFormFieldsData) => {
+            {props.formData.sort((n1, n2) => n1.displayOrder - n2.displayOrder).map((field: IFormFieldsData, index: number) => {
                 return (
-                    <div style={{ paddingBottom: "2rem" }}>
+                    <div key={`div-form-field-${index}`} style={{ paddingBottom: "2rem" }}>
                         {mapFormInputFields(field)}
                     </div>
                 )

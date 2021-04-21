@@ -8,13 +8,12 @@ import { theme } from "./theme"
 
 ReactDOM.render(
   <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme} >
+      <ThemeProvider theme={theme} >
         <CssBaseline />
         <App />
       </ThemeProvider>
     </MuiThemeProvider>
-
   </React.StrictMode>,
   document.getElementById('root')
 );
