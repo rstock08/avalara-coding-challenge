@@ -5,7 +5,8 @@ export const FormValidation = {
         return validator.isEmail(val);
     },
     isNameValid(val: string) {
-        return validator.isAlpha(val.replaceAll(" ", ""));
+        const regex = /.\s/g
+        return validator.isAlpha(val.replaceAll(regex, ""));
     },
     isAddressValid(val: string) {
         const regex = /.-\s/g
